@@ -36,3 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define UNICODE_SELECTED_MODES UC_MAC
+
+#if defined(OLED_FONT_H)
+#    undef OLED_FONT_H
+#endif
+#define OLED_FONT_H "keyboards/lily58/keymaps/hiddenbit/font.c"

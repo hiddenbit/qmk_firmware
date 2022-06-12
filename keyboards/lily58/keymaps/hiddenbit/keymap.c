@@ -65,26 +65,26 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-    KC_ESC,    KC_1,    KC_2,     KC_3,     KC_4,     KC_5,                           KC_6,     KC_7,     KC_8,     KC_9,    KC_0,     KC_MINS,
-    KC_TAB,    KC_Q,    KC_W,     KC_E,     KC_R,     KC_T,                           KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_BACKSLASH,
-    KC_ESC,    KC_A,    KC_S,     KC_D,     KC_F,     KC_G,                           KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-    KC_LSFT,   KC_Z,    KC_X,     KC_C,     KC_V,     KC_B,     MY_L_ROT,   RGB_TOG,  KC_N,     KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT,
-                                    KC_LCTRL, KC_LALT,  KC_LGUI,  KC_SPC,     TO_NAV,   TO_NAV,   TO_SPC,  KC_RCTRL
+    KC_ESC,    KC_1,    KC_2,     KC_3,     KC_4,     KC_5,                         KC_6,     KC_7,     KC_8,     KC_9,    KC_0,     KC_MINS,
+    KC_TAB,    KC_Q,    KC_W,     KC_E,     KC_R,     KC_T,                         KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_BACKSLASH,
+    KC_ESC,    KC_A,    KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
+    OSM(KC_LSFT),KC_Z,  KC_X,     KC_C,     KC_V,     KC_B,   MY_L_ROT,   XXXXXXX,  KC_N,     KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT,
+                 OSM(KC_LCTRL), OSM(KC_LALT),  OSM(KC_LGUI),  KC_SPC,     TO_NAV,   TO_NAV,   TO_SPC,  KC_RCTRL
     ),
 
     [_NAVIGATION] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX,       XXXXXXX,   LCMD(KC_UP),   XXXXXXX, XXXXXXX,        XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX,       KC_DELETE, KC_UP,         KC_BSPC, XXXXXXX,        XXXXXXX,
-    KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       LCMD(KC_LEFT), KC_LEFT,   KC_DOWN,       KC_RGHT, LCMD(KC_RIGHT), XXXXXXX,
-    KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,   _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
-                                _______, _______, _______,  _______, _______,  _______,       _______,   _______
+    KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX,       XXXXXXX,   LCMD(KC_UP),   XXXXXXX, XXXXXXX,        XXXXXXX,
+    KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      XXXXXXX,       KC_DELETE, KC_UP,         KC_BSPC, XXXXXXX,        XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     LCMD(KC_LEFT), KC_LEFT,   KC_DOWN,       KC_RGHT, LCMD(KC_RIGHT), XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
+                               _______, _______, _______,  _______, _______,  _______,       _______,   _______
     ),
 
     [_SPECIAL_CHARS] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    X(BLLT),  XXXXXXX,       XXXXXXX,       XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), XXXXXXX,  LSFT(KC_0),    XXXXXXX,       XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    XXXXXXX,  X(RARR),       XXXXXXX,       XXXXXXX,
-    X(BANG), X(IRONY), X(SNEK), X(RARR), X(BLLT), XXXXXXX,  _______, _______,  XXXXXXX, KC_LBRC,    KC_RBRC,  LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,
+    X(BANG), X(IRONY), X(SNEK), X(RARR), X(BLLT), XXXXXXX,  _______, RGB_TOG,  XXXXXXX, KC_LBRC,    KC_RBRC,  LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,
                                 _______, _______, _______,  _______, _______,  _______, _______,    _______
     )
 };
@@ -248,9 +248,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if(IS_LAYER_ON(_SPECIAL_CHARS)) {
       //
       if (clockwise) {
-          tap_code(KC_RIGHT);
+          rgblight_step_reverse();
       } else {
-          tap_code(KC_LEFT);
+          rgblight_step();
       }
     }
     else {

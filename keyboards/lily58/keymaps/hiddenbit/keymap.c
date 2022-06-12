@@ -144,107 +144,60 @@ void render_lily58_logo(void) {
     oled_write_raw_P(lily58_logo, sizeof(lily58_logo));
 }
 
-char SYM_SHIFT_NW = 128;
-char SYM_SHIFT_NO = 129;
-char SYM_SHIFT_SW = 160;
-char SYM_SHIFT_SO = 161;
+void render_symbol_xy(int col, int row, int h, int w, int i) {
+    int r, c;
+    for (r = 0; r < h; r++) {
+        oled_set_cursor(0, row + r);
+        for (c = 0; c < w; c++) {
+            oled_write_char(i + r * 32 + c, false);
+        }
+    }
+}
 
-char SYM_CMD_NW = 130;
-char SYM_CMD_NO = 131;
-char SYM_CMD_SW = 162;
-char SYM_CMD_SO = 163;
-
+void render_symbol_4x3(int col, int row, int i) {
+    render_symbol_xy(col, row, 3, 4, i);
+}
+void render_symbol_5x2(int col, int row, int i) {
+    render_symbol_xy(col, row, 2, 5, i);
+}
 
 void render_default_layer_state(void) {
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
-            oled_set_cursor(0, 0);
-            oled_write_char(138, false);
-            oled_write_char(139, false);
-            oled_write_char(140, false);
-            oled_write_char(141, false);
-            oled_write_char(142, false);
-            oled_write_char(170, false);
-            oled_write_char(171, false);
-            oled_write_char(172, false);
-            oled_write_char(173, false);
-            oled_write_char(174, false);
-            break;
-        case _SPECIAL_CHARS:
-            oled_set_cursor(0, 0);
-            oled_write_char(148, false);
-            oled_write_char(149, false);
-            oled_write_char(150, false);
-            oled_write_char(151, false);
-            oled_write_char(152, false);
-            oled_write_char(180, false);
-            oled_write_char(181, false);
-            oled_write_char(182, false);
-            oled_write_char(183, false);
-            oled_write_char(184, false);
+            render_symbol_5x2(0, 0, 144);
             break;
         case _NAVIGATION:
-            oled_set_cursor(0, 0);
-            oled_write_char(143, false);
-            oled_write_char(144, false);
-            oled_write_char(145, false);
-            oled_write_char(146, false);
-            oled_write_char(147, false);
-            oled_write_char(175, false);
-            oled_write_char(176, false);
-            oled_write_char(177, false);
-            oled_write_char(178, false);
-            oled_write_char(179, false);
+            render_symbol_5x2(0, 0, 149);
+            break;
+        case _SPECIAL_CHARS:
+            render_symbol_5x2(0, 0, 154);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-
-    oled_set_cursor(0, 12);
-    oled_write_char(128, false);
-    oled_write_char(129, false);
-    oled_write_char(130, false);
-    oled_write_char(131, false);
-    oled_write_char(132, false);
-
-    oled_set_cursor(0, 13);
-    oled_write_char(160, false);
-    oled_write_char(161, false);
-    oled_write_char(162, false);
-    oled_write_char(163, false);
-    oled_write_char(164, false);
-
-    oled_set_cursor(0, 14);
-    oled_write_char(133, false);
-    oled_write_char(134, false);
-    oled_write_char(135, false);
-    oled_write_char(136, false);
-    oled_write_char(137, false);
-
-    oled_set_cursor(0, 15);
-    oled_write_char(165, false);
-    oled_write_char(166, false);
-    oled_write_char(167, false);
-    oled_write_char(168, false);
-    oled_write_char(169, false);
 }
 
-void render_mod_status(uint8_t modifiers) {
-    oled_write_P(PSTR("S"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_P(PSTR("C"), (modifiers & MOD_MASK_CTRL));
-    oled_write_P(PSTR("A"), (modifiers & MOD_MASK_ALT));
-    oled_write_P(PSTR("G"), (modifiers & MOD_MASK_GUI));
-}
+
+
 
 void render_status_main(void) {
+    oled_clear();
     // Show keyboard layout
     render_default_layer_state();
-    // // Add a empty line
-    // oled_write_P(PSTR("-----"), false);
-    // // Add a empty line
-    // oled_write_P(PSTR("-----"), false);
-    // // Show modifier status
-    // render_mod_status(get_mods());
+
+    uint8_t mods = get_mods();
+    if (mods & MOD_MASK_GUI) {
+        render_symbol_4x3(0, 3, 140);
+    }
+    if (mods & MOD_MASK_SHIFT) {
+        render_symbol_4x3(0, 6, 136);
+    }
+    if (mods & MOD_MASK_ALT) {
+        render_symbol_4x3(0, 9, 132);
+    }
+    if (mods & MOD_MASK_CTRL) {
+        render_symbol_4x3(0, 12, 128);
+    }
 }
 
 bool oled_task_user(void) {

@@ -40,27 +40,35 @@ enum unicode_names {
     BANG,
     IRONY,
     SNEK,
+    UARR,
     RARR,
+    DARR,
+    LARR,
     BLLT,
+    EUR,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
     [BANG]  = 0x203D,  // ‽
     [IRONY] = 0x2E2E,  // ⸮
     [SNEK]  = 0x1F40D, // 🐍
+    [UARR]  = 0x2091, // ↑
     [RARR]  = 0x2192, // →
-    [BLLT]  = 0x2022, // →
+    [DARR]  = 0x2193, // ↓
+    [LARR]  = 0x2190, // ←
+    [BLLT]  = 0x2022, // •
+    [EUR]   = 0x20AC, // €
 };
 
 
-enum {
-  TD_LBRC,
-  TD_RBRC,
-};
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, LSFT(KC_LBRC)),
-  [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LSFT(KC_RBRC)),
-};
+// enum {
+//   TD_LBRC,
+//   TD_RBRC,
+// };
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//   [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, LSFT(KC_LBRC)),
+//   [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, LSFT(KC_RBRC)),
+// };
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,26 +76,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,    KC_1,    KC_2,     KC_3,     KC_4,     KC_5,                         KC_6,     KC_7,     KC_8,     KC_9,    KC_0,     KC_MINS,
     KC_TAB,    KC_Q,    KC_W,     KC_E,     KC_R,     KC_T,                         KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_BACKSLASH,
     KC_ESC,    KC_A,    KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
-    OSM(KC_LSFT),KC_Z,  KC_X,     KC_C,     KC_V,     KC_B,   MY_L_ROT,   XXXXXXX,  KC_N,     KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT,
-                 OSM(KC_LCTRL), OSM(KC_LALT),  OSM(KC_LGUI),  KC_SPC,     TO_NAV,   TO_NAV,   TO_SPC,  KC_RCTRL
+    OSM(MOD_LSFT),KC_Z, KC_X,     KC_C,     KC_V,     KC_B,   MY_L_ROT,    XXXXXXX, KC_N,     KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT,
+               OSM(MOD_LCTL), OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_SPC,      XXXXXXX, TO_NAV,   TO_SPC,   KC_RCTRL
     ),
 
     [_NAVIGATION] = LAYOUT(
     KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX,       XXXXXXX,   LCMD(KC_UP),   XXXXXXX, XXXXXXX,        XXXXXXX,
     KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      XXXXXXX,       KC_DELETE, KC_UP,         KC_BSPC, XXXXXXX,        XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     LCMD(KC_LEFT), KC_LEFT,   KC_DOWN,       KC_RGHT, LCMD(KC_RIGHT), XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  DM_RSTP, DM_REC1,  DM_PLY1,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
                                _______, _______, _______,  _______, _______,  _______,       _______,   _______
     ),
 
     [_SPECIAL_CHARS] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    X(BLLT),  XXXXXXX,       XXXXXXX,       XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), XXXXXXX,  LSFT(KC_0),    XXXXXXX,       XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    XXXXXXX,  X(RARR),       XXXXXXX,       XXXXXXX,
-    X(BANG), X(IRONY), X(SNEK), X(RARR), X(BLLT), XXXXXXX,  _______, RGB_TOG,  XXXXXXX, KC_LBRC,    KC_RBRC,  LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, X(EUR),  XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), X(UARR),  LSFT(KC_0),    XXXXXXX,       XXXXXXX,
+    XXXXXXX, LALT(KC_A), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, X(LARR),    X(DARR),  X(RARR),       XXXXXXX,       XXXXXXX,
+    X(BANG), X(IRONY), X(SNEK), X(RARR), X(BLLT), XXXXXXX,  _______, RGB_TOG, XXXXXXX, KC_LBRC,    KC_RBRC,  LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,
                                 _______, _______, _______,  _______, _______,  _______, _______,    _______
     )
 };
+
+
+
+
+
+
+
+
+// Tap Dance declarations
+// enum {
+//     TD_ESC_CAPS,
+// };
+
+// Tap Dance definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // Tap once for Escape, twice for Caps Lock
+    //[TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+};
+
+// Add tap dance item to your keymap in place of a keycode
+// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // ...
+    //TD(TD_ESC_CAPS)
+    // ...
+// };
+
+
+
+
+
+
+
+
+
 
 //layer_state_t layer_state_set_user(layer_state_t state) {
 //    state = update_tri_layer_state(state, _NAVIGATION, _SPECIAL_CHARS, _ADJUST);
@@ -176,9 +218,6 @@ void render_default_layer_state(void) {
             oled_write_ln_P(PSTR("Undef"), false);
     }
 }
-
-
-
 
 void render_status_main(void) {
     oled_clear();

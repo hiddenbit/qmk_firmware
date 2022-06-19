@@ -19,46 +19,51 @@
 
 #include QMK_KEYBOARD_H
 
-
 extern uint8_t is_master;
 
 enum layers {
     _QWERTY,
     _SPECIAL_CHARS,
     _NAVIGATION,
-    _ADJUST,
+    _MACRO,
 };
 
 #define TO_NAV MO(_NAVIGATION)
 #define TO_SPC MO(_SPECIAL_CHARS)
+//#define TO_MCR MO(_MACRO)
 
 // CMD when hold, screenshot when pressed
 #define MY_L_ROT LGUI_T(SCMD(KC_3))
 
+#define MY_UARR LSA(KC_K)
+#define MY_RARR LSA(KC_L)
+#define MY_DARR LSA(KC_J)
+#define MY_LARR LSA(KC_H)
+#define MY_BLLT LALT(KC_8)
+#define MY_EUR LALT(KC_E)
 
-enum unicode_names {
-    BANG,
-    IRONY,
-    SNEK,
-    UARR,
-    RARR,
-    DARR,
-    LARR,
-    BLLT,
-    EUR,
-};
-
-const uint32_t PROGMEM unicode_map[] = {
-    [BANG]  = 0x203D,  // ‽
-    [IRONY] = 0x2E2E,  // ⸮
-    [SNEK]  = 0x1F40D, // 🐍
-    [UARR]  = 0x2091, // ↑
-    [RARR]  = 0x2192, // →
-    [DARR]  = 0x2193, // ↓
-    [LARR]  = 0x2190, // ←
-    [BLLT]  = 0x2022, // •
-    [EUR]   = 0x20AC, // €
-};
+//enum unicode_names {
+//    BANG,
+//    IRONY,
+//    SNEK,
+//    UARR,
+//    RARR,
+//    DARR,
+//    LARR,
+//    BLLT,
+//    EUR,
+//};
+//const uint32_t PROGMEM unicode_map[] = {
+//    [BANG]  = 0x203D,  // ‽
+//    [IRONY] = 0x2E2E,  // ⸮
+//    [SNEK]  = 0x1F40D, // 🐍
+//    [UARR]  = 0x2091, // ↑
+//    [RARR]  = 0x2192, // →
+//    [DARR]  = 0x2193, // ↓
+//    [LARR]  = 0x2190, // ←
+//    [BLLT]  = 0x2022, // •
+//    [EUR]   = 0x20AC, // €
+//};
 
 
 // enum {
@@ -77,23 +82,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,    KC_Q,    KC_W,     KC_E,     KC_R,     KC_T,                         KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_BACKSLASH,
     KC_ESC,    KC_A,    KC_S,     KC_D,     KC_F,     KC_G,                         KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
     OSM(MOD_LSFT),KC_Z, KC_X,     KC_C,     KC_V,     KC_B,   MY_L_ROT,    XXXXXXX, KC_N,     KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_ENT,
-               OSM(MOD_LCTL), OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_SPC,      XXXXXXX, TO_NAV,   TO_SPC,   KC_RCTRL
+               OSM(MOD_LCTL), OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_SPC,      KC_SPC,  TO_NAV,   TO_SPC,   MO(_MACRO)
     ),
 
     [_NAVIGATION] = LAYOUT(
     KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX,       XXXXXXX,   LCMD(KC_UP),   XXXXXXX, XXXXXXX,        XXXXXXX,
     KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      XXXXXXX,       KC_DELETE, KC_UP,         KC_BSPC, XXXXXXX,        XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     LCMD(KC_LEFT), KC_LEFT,   KC_DOWN,       KC_RGHT, LCMD(KC_RIGHT), XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  DM_RSTP, DM_REC1,  DM_PLY1,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
                                _______, _______, _______,  _______, _______,  _______,       _______,   _______
     ),
 
     [_SPECIAL_CHARS] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    X(BLLT),  XXXXXXX,       XXXXXXX,       XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, X(EUR),  XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), X(UARR),  LSFT(KC_0),    XXXXXXX,       XXXXXXX,
-    XXXXXXX, LALT(KC_A), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, X(LARR),    X(DARR),  X(RARR),       XXXXXXX,       XXXXXXX,
-    X(BANG), X(IRONY), X(SNEK), X(RARR), X(BLLT), XXXXXXX,  _______, RGB_TOG, XXXXXXX, KC_LBRC,    KC_RBRC,  LSFT(KC_LBRC), LSFT(KC_RBRC), XXXXXXX,
-                                _______, _______, _______,  _______, _______,  _______, _______,    _______
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    MY_BLLT,  XXXXXXX,    XXXXXXX,       XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, MY_EUR,  XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), MY_UARR,  LSFT(KC_0), KC_LBRC,       KC_RBRC,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, MY_LARR,    MY_DARR,  MY_RARR,    LSFT(KC_LBRC), LSFT(KC_RBRC),
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, RGB_TOG,  XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,       XXXXXXX,
+                               _______, _______, _______,  _______, _______,  _______, _______,    _______
+    ),
+
+    [_MACRO] = LAYOUT(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, DM_PLY1, DM_REC1, DM_RSTP, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX, DM_PLY2, DM_REC2, DM_RSTP, XXXXXXX, XXXXXXX,
+                               _______, _______, _______,  _______, _______,  _______, _______, _______
     )
 };
 

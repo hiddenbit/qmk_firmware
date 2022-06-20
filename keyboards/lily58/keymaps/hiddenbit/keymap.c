@@ -89,23 +89,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX,       XXXXXXX,   LCMD(KC_UP),   XXXXXXX, XXXXXXX,        XXXXXXX,
     KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      XXXXXXX,       KC_DELETE, KC_UP,         KC_BSPC, XXXXXXX,        XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     LCMD(KC_LEFT), KC_LEFT,   KC_DOWN,       KC_RGHT, LCMD(KC_RIGHT), XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        _______,
                                _______, _______, _______,  _______, _______,  _______,       _______,   _______
     ),
 
     [_SPECIAL_CHARS] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    MY_BLLT,  XXXXXXX,    XXXXXXX,       XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    MY_BLLT,  LSFT(KC_9), LSFT(KC_0),    XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, MY_EUR,  XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), MY_UARR,  LSFT(KC_0), KC_LBRC,       KC_RBRC,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, MY_LARR,    MY_DARR,  MY_RARR,    LSFT(KC_LBRC), LSFT(KC_RBRC),
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, RGB_TOG,  XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,       XXXXXXX,
-                               _______, _______, _______,  _______, _______,  _______, _______,    _______
+    _______, KC_GRAVE,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, RGB_TOG,  XXXXXXX, KC_LBRC,    XXXXXXX,  KC_RBRC,    XXXXXXX,       _______,
+                               _______, _______, _______,  _______, _______,  _______, _______, _______
     ),
 
     [_MACRO] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, DM_PLY1, DM_REC1, DM_RSTP, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX, DM_PLY2, DM_REC2, DM_RSTP, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX, DM_PLY2, DM_REC2, DM_RSTP, XXXXXXX, _______,
                                _______, _______, _______,  _______, _______,  _______, _______, _______
     )
 };

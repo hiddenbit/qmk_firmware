@@ -79,24 +79,24 @@ enum layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
     KC_ESC,           KC_1,    KC_2,     KC_3,     KC_4,     KC_5,                        KC_6,     KC_7,     KC_8,     KC_9,    KC_0,     KC_MINS,
-    KC_TAB,           KC_Q,    KC_W,     KC_E,     KC_R,     KC_T,                        KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_BACKSLASH,
+    KC_TAB,           KC_Q,    KC_W,     KC_E,     KC_R,     KC_T,                        KC_Y,     KC_U,     KC_I,     KC_O,    KC_P,     KC_LBRC,
     KC_ESC,           KC_A,    KC_S,     KC_D,     KC_F,     KC_G,                        KC_H,     KC_J,     KC_K,     KC_L,    KC_SCLN,  KC_QUOT,
     LSFT_T(KC_GRAVE), KC_Z,    KC_X,     KC_C,     KC_V,     KC_B,    MY_L_ROT,  KC_MPLY, KC_N,     KC_M,     KC_COMM,  KC_DOT,  KC_SLSH,  KC_RSFT,
                         OSM(MOD_LCTL), OSM(MOD_LALT),  OSM(MOD_LGUI), KC_SPC,    KC_ENT,  TO_NAV,   TO_SPC,   MO(_MACRO)
     ),
 
     [_NAVIGATION] = LAYOUT(
-    KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX,       XXXXXXX,   LCMD(KC_UP),   XXXXXXX, XXXXXXX,        XXXXXXX,
-    KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      XXXXXXX,       KC_DELETE, KC_UP,         KC_BSPC, XXXXXXX,        XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     LCMD(KC_LEFT), KC_LEFT,   KC_DOWN,       KC_RGHT, LCMD(KC_RIGHT), XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       XXXXXXX,   LCMD(KC_DOWN), XXXXXXX, XXXXXXX,        _______,
+    KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX,       XXXXXXX,       LCMD(KC_UP),   XXXXXXX,        XXXXXXX,        XXXXXXX,
+    KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      XXXXXXX,       KC_DELETE,     KC_UP,         KC_BSPC,        XXXXXXX,        XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     LCMD(KC_LEFT), KC_LEFT,       KC_DOWN,       KC_RGHT,        LCMD(KC_RIGHT), XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX,       LALT(KC_LEFT), LCMD(KC_DOWN), LALT(KC_RIGHT), XXXXXXX,        _______,
                                _______, _______, _______,  _______, _______,  _______,       _______,   _______
     ),
 
     [_SPECIAL_CHARS] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    MY_BLLT,  LSFT(KC_9), LSFT(KC_0),    KC_EQL,
     XXXXXXX, XXXXXXX, XXXXXXX, MY_EUR,  XXXXXXX, XXXXXXX,                     XXXXXXX, LSFT(KC_9), MY_UARR,  LSFT(KC_0), KC_LBRC,       KC_RBRC,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, MY_LARR,    MY_DARR,  MY_RARR,    LSFT(KC_LBRC), LSFT(KC_RBRC),
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, MY_LARR,    MY_DARR,  MY_RARR,    XXXXXXX,       KC_BSLS,
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, RGB_TOG,  XXXXXXX, KC_LBRC,    XXXXXXX,  KC_RBRC,    XXXXXXX,       _______,
                                _______, _______, _______,  _______, _______,  _______, _______, _______
     ),

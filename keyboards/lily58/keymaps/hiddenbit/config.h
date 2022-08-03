@@ -43,5 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/lily58/keymaps/hiddenbit/font.c"
 
 // See: https://github.com/qmk/qmk_firmware/blob/master/docs/one_shot_keys.md
-#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
-#define ONESHOT_TIMEOUT 3000  /* Time (in ms) before the one shot key is released */
+//#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
+//#define ONESHOT_TIMEOUT 3000  /* Time (in ms) before the one shot key is released */

@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_RIGHT
 // #define EE_HANDS
 
+// https://github.com/qmk/qmk_firmware/blob/master/docs/feature_unicode.md
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
+
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP 6 // number of steps to cycle through the hue by
@@ -34,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
 #    define RGBLIGHT_SLEEP //  the RGB lighting will be switched off when the host goes to sleep
 #endif
-
-#define UNICODE_SELECTED_MODES UC_MAC
 
 #if defined(OLED_FONT_H)
 #    undef OLED_FONT_H
@@ -45,3 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // See: https://github.com/qmk/qmk_firmware/blob/master/docs/one_shot_keys.md
 //#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 //#define ONESHOT_TIMEOUT 3000  /* Time (in ms) before the one shot key is released */
+
+
+// → Umlaute: https://github.com/qmk/qmk_firmware/tree/master/users/spacebarracecar
+// → Swap Hands: https://github.com/qmk/qmk_firmware/blob/master/docs/feature_swap_hands.md

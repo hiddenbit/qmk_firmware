@@ -42,6 +42,11 @@ enum layers {
 //#define MY_BLLT LALT(KC_8)
 #define MY_EUR LALT(KC_E)
 
+enum my_keycodes {
+  RGBE_SLD = SAFE_RANGE, // RGB_MATRIX_SOLID_COLOR
+  RGBE_CUD, // RGB_MATRIX_CYCLE_UP_DOWN
+};
+
 //enum unicode_names {
 //    BANG,
 //    IRONY,
@@ -93,26 +98,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NAVIGATION] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,    XXXXXXX,     XXXXXXX,  XXXXXXX, XXXXXXX,
-    KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       XXXXXXX, KC_DELETE,  KC_UP,       KC_BSPC,  XXXXXXX, XXXXXXX,
-    KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,  KC_F12,                      DM_PLY1, KC_LEFT,    KC_DOWN,     KC_RIGHT, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, RGB_TOG,  DM_PLY2, KC_RGUI,    KC_RALT,     KC_RCTL,  XXXXXXX, _______,
+    XXXXXXX, XXXXXXX, KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                     XXXXXXX, XXXXXXX,    XXXXXXX,     XXXXXXX,  XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F6,                       XXXXXXX, KC_DELETE,  KC_UP,       KC_BSPC,  XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F12,                      DM_PLY1, KC_LEFT,    KC_DOWN,     KC_RIGHT, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   XXXXXXX,  _______, _______,  DM_PLY2, KC_RGUI,    KC_RALT,     KC_RCTL,  XXXXXXX, _______,
                                _______, _______, _______,  _______, _______,  _______,       _______,   _______
     ),
 
     [_SPECIAL_CHARS] = LAYOUT(
-    XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX,      XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
-    KC_GRAVE, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,         KC_8,          KC_9,          KC_0,          KC_MINS,
-    XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     KC_LBRC, KC_RBRC,      LSFT(KC_9),    LSFT(KC_0),    KC_EQL,        KC_BSLS,
-    _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  XXXXXXX, LSFT(KC_EQL), LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_BSLS), _______,
+    XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
+    KC_GRAVE, XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX,                     XXXXXXX, XXXXXXX, LSFT(KC_9),    LSFT(KC_0),    LSFT(KC_EQL),  KC_MINS,
+    XXXXXXX,  XXXXXXX, KC_4,    KC_5,    KC_6,    KC_DOT,                      XXXXXXX, XXXXXXX, KC_LBRC,       KC_RBRC,       KC_EQL,        KC_BSLS,
+    _______,  KC_0,    KC_1,    KC_2,    KC_3,    KC_COMM,  _______, _______,  XXXXXXX, XXXXXXX, LSFT(KC_LBRC), LSFT(KC_RBRC), LSFT(KC_BSLS), _______,
                                 _______, _______, _______,  _______, _______,  _______, _______, _______
     ),
 
     [_MACRO] = LAYOUT(
     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     DM_REC1, KC_RGUI, KC_RALT, KC_RCTL, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, _______,  DM_REC2, KC_RGUI, KC_RALT, KC_RCTL, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     RGBE_SLD,RGBE_CUD,XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     DM_REC1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______, RGB_TOG,  DM_REC2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                _______, _______, _______,  _______, _______,  _______, _______, _______
     )
 };
@@ -155,6 +160,67 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //    state = update_tri_layer_state(state, _NAVIGATION, _SPECIAL_CHARS, _ADJUST);
 //    return state;
 //}
+
+
+
+#define SET_RGB_EFFECT(mode) if (record->event.pressed) { rgblight_mode(mode); } return false
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MY_L_ROT:
+            if (record->tap.count && record->event.pressed) {
+                register_code(KC_LEFT_GUI);
+                register_code(KC_LEFT_SHIFT);
+                tap_code(KC_3);
+                unregister_code(KC_LEFT_SHIFT);
+                unregister_code(KC_LEFT_GUI);
+                return false;
+            }
+            break;
+        case RGBE_SLD: SET_RGB_EFFECT(1); break;
+        case RGBE_CUD: SET_RGB_EFFECT(3); break;
+    }
+    return true;
+}
+
+
+// Rotary encoder related code
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { // Encoder on master side
+    if (clockwise) {
+        // register_code(KC_LEFT_GUI);
+        register_code(KC_LEFT_SHIFT);
+        tap_code(KC_TAB);
+        unregister_code(KC_LEFT_SHIFT);
+        // unregister_code(KC_LEFT_GUI);
+    } else {
+        // register_code(KC_LEFT_GUI);
+        tap_code(KC_TAB);
+        // tap_code(KC_R);
+        // unregister_code(KC_LEFT_GUI);
+    }
+  }
+  else if (index == 1) { // Encoder on slave side
+    if(IS_LAYER_ON(_MACRO)) {
+      //
+      if (clockwise) {
+          rgblight_step_reverse();
+      } else {
+          rgblight_step();
+      }
+    }
+    else {
+      if (clockwise) {
+          tap_code(KC_VOLD);
+      } else {
+          tap_code(KC_VOLU);
+      }
+    }
+  }
+    return true;
+}
+#endif
 
 //SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
 #ifdef OLED_ENABLE
@@ -267,59 +333,4 @@ bool oled_task_user(void) {
   }
     return false;
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MY_L_ROT:
-            if (record->tap.count && record->event.pressed) {
-                register_code(KC_LEFT_GUI);
-                register_code(KC_LEFT_SHIFT);
-                tap_code(KC_3);
-                unregister_code(KC_LEFT_SHIFT);
-                unregister_code(KC_LEFT_GUI);
-                return false;
-            }
-            break;
-    }
-    return true;
-}
 #endif // OLED_ENABLE
-
-
-// Rotary encoder related code
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) { // Encoder on master side
-    if (clockwise) {
-        // register_code(KC_LEFT_GUI);
-        register_code(KC_LEFT_SHIFT);
-        tap_code(KC_TAB);
-        unregister_code(KC_LEFT_SHIFT);
-        // unregister_code(KC_LEFT_GUI);
-    } else {
-        // register_code(KC_LEFT_GUI);
-        tap_code(KC_TAB);
-        // tap_code(KC_R);
-        // unregister_code(KC_LEFT_GUI);
-    }
-  }
-  else if (index == 1) { // Encoder on slave side
-    if(IS_LAYER_ON(_SPECIAL_CHARS)) {
-      //
-      if (clockwise) {
-          rgblight_step_reverse();
-      } else {
-          rgblight_step();
-      }
-    }
-    else {
-      if (clockwise) {
-          tap_code(KC_VOLD);
-      } else {
-          tap_code(KC_VOLU);
-      }
-    }
-  }
-    return true;
-}
-#endif

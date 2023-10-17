@@ -194,11 +194,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_off(_SPECIAL_CHARS_SHIFT);
                     layer_on(_SPECIAL_CHARS);
                 }
+                return false;  // Don't propagate the shift key press event when special_active is true
             } else {
                 layer_off(_SPECIAL_CHARS);
                 layer_off(_SPECIAL_CHARS_SHIFT);
             }
-            return false;
+            break;  // Propagate the shift key press event when special_active is false
         case MY_L_ROT:
             if (record->tap.count && record->event.pressed) {
                 register_code(KC_LEFT_GUI);

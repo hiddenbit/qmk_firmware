@@ -175,31 +175,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static bool special_active = false;
+    static uint8_t shift_held = 0;
+
     switch (keycode) {
         case TO_SPC:
-            special_active = record->event.pressed;
-            // Fall through to apply layer immediately
-        case KC_LSFT:
-        case KC_RSFT:
             if (record->event.pressed) {
-                keyboard_report->mods |= MOD_BIT(keycode);
-            } else {
-                keyboard_report->mods &= ~MOD_BIT(keycode);
-            }
-            if (special_active) {
-                if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)) {
+                special_active = true;
+                if (shift_held) {
                     layer_off(_SPECIAL_CHARS);
                     layer_on(_SPECIAL_CHARS_SHIFT);
                 } else {
                     layer_off(_SPECIAL_CHARS_SHIFT);
                     layer_on(_SPECIAL_CHARS);
                 }
-                return false;  // Don't propagate the shift key press event when special_active is true
             } else {
+                special_active = false;
                 layer_off(_SPECIAL_CHARS);
                 layer_off(_SPECIAL_CHARS_SHIFT);
             }
-            break;  // Propagate the shift key press event when special_active is false
+            return false; // We handled this keypress
+        case KC_LSFT:
+        case KC_RSFT:
+            if (record->event.pressed) {
+                shift_held++;
+                if (special_active) {
+                    layer_off(_SPECIAL_CHARS);
+                    layer_on(_SPECIAL_CHARS_SHIFT);
+                }
+            } else {
+                if (shift_held > 0) shift_held--;
+                if (special_active && shift_held == 0) {
+                    layer_off(_SPECIAL_CHARS_SHIFT);
+                    layer_on(_SPECIAL_CHARS);
+                }
+            }
+            break; // We didn't handle this keypress, let QMK do the rest
         case MY_L_ROT:
             if (record->tap.count && record->event.pressed) {
                 register_code(KC_LEFT_GUI);
